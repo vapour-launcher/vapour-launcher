@@ -564,17 +564,16 @@ pub async fn kill_instance(instance_id: String) -> Result<(), String> {
     // Kill the process
     #[cfg(unix)]
     {
-        unsafe {
-            libc::kill(pid as i32, libc::SIGTERM);
-        }
+        let _ = std::process::Command::new("kill")
+            .args(["-15", &pid.to_string()])
+            .output();
     }
     #[cfg(not(unix))]
     {
         // On Windows, use taskkill
-        std::process::Command::new("taskkill")
-            .args(&["/PID", &pid.to_string(), "/F"])
-            .output()
-            .map_err(|e| e.to_string())?;
+        let _ = std::process::Command::new("taskkill")
+            .args(["/PID", &pid.to_string(), "/F"])
+            .output();
     }
 
     {
