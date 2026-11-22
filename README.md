@@ -6,15 +6,7 @@ A high-performance, glassmorphic desktop Minecraft launcher built with **Rust** 
 
 ## ✨ Features & Architecture
 
-### 1. 🎨 Figma-Matched UI Design
-* **Glassmorphism Aesthetic**: Dark base palette (`#111217`), frosted glass floating pills with 20px backdrop blur, subtle 1px border glows (`rgba(255,255,255,0.08)`), and periwinkle-violet accents (`#7C72FF`).
-* **Frameless Window**: Custom non-native titlebar controls (`minimize`, `toggleMaximize`, `close`) with native dragging support (`data-tauri-drag-region`).
-* **Left Icon Rail**: Slim 64px navigation bar for instant switching between Play (Home), Instances, Skins/Wardrobe, Settings, and Changelog.
-* **Interactive 3D Skin Viewer**: Integrated WebGL renderer (`skinview3d`) animating Minecraft player skins and capes in real-time.
-* **Floating Top Status Bar**: Live online player counter, active instance status (`Fabric 1.21.11`), and Microsoft/Offline account switcher pill.
-* **Bottom Quick-Access Bar**: Mod count indicator (`Mods (32)`), updates drawer trigger, and direct social links.
-
-### 2. ⚡ Rust Backend Engine (`src-tauri`)
+### 1. ⚡ Rust Backend Engine (`src-tauri`)
 * **Multi-Instance Manager**: Creates, isolates, duplicates, updates, and deletes instances inside the OS application directory (`~/.local/share/vapour-launcher/instances/`), separating `.minecraft` saves, mods, resourcepacks, and shaderpacks.
 * **Async Download & Verification**: High-throughput parallelized asset and library fetcher using `reqwest` + `tokio`, verifying integrity via `sha1` checksums.
 * **Authentication Engine**:
