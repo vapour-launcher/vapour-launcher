@@ -151,14 +151,10 @@ pub struct AssetObject {
 const VERSION_MANIFEST_URL: &str = "https://piston-meta.mojang.com/mc/game/version_manifest_v2.json";
 const ASSET_BASE_URL: &str = "https://resources.download.minecraft.net";
 
-fn get_game_dir(app: &tauri::AppHandle) -> PathBuf {
-    app.path_resolver()
-        .app_data_dir()
-        .unwrap_or_else(|| {
-            dirs::data_dir()
-                .unwrap_or_else(|| PathBuf::from("."))
-                .join("vapour-launcher")
-        })
+fn get_game_dir(_app: &tauri::AppHandle) -> PathBuf {
+    dirs::data_dir()
+        .unwrap_or_else(|| PathBuf::from("."))
+        .join("vapour-launcher")
 }
 
 fn get_versions_dir(app: &tauri::AppHandle) -> PathBuf {
@@ -194,7 +190,7 @@ fn get_current_os() -> &'static str {
     }
 }
 
-fn should_use_library(lib: &Library) -> bool {
+pub fn should_use_library(lib: &Library) -> bool {
     let current_os = get_current_os();
     match &lib.rules {
         None => true,
@@ -217,7 +213,7 @@ fn should_use_library(lib: &Library) -> bool {
     }
 }
 
-fn library_path_from_name(name: &str) -> String {
+pub fn library_path_from_name(name: &str) -> String {
     // Maven coordinate: group:artifact:version
     let parts: Vec<&str> = name.split(':').collect();
     if parts.len() >= 3 {

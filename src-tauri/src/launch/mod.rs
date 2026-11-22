@@ -25,14 +25,10 @@ pub struct GameLogEvent {
 static RUNNING_INSTANCES: std::sync::LazyLock<Mutex<HashMap<String, u32>>> =
     std::sync::LazyLock::new(|| Mutex::new(HashMap::new()));
 
-fn get_data_dir(app: &tauri::AppHandle) -> PathBuf {
-    app.path_resolver()
-        .app_data_dir()
-        .unwrap_or_else(|| {
-            dirs::data_dir()
-                .unwrap_or_else(|| PathBuf::from("."))
-                .join("vapour-launcher")
-        })
+fn get_data_dir(_app: &tauri::AppHandle) -> PathBuf {
+    dirs::data_dir()
+        .unwrap_or_else(|| PathBuf::from("."))
+        .join("vapour-launcher")
 }
 
 fn get_instance_minecraft_dir(app: &tauri::AppHandle, instance_id: &str) -> PathBuf {

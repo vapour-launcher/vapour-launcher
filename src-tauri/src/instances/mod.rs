@@ -35,29 +35,19 @@ struct InstanceStore {
     active: Option<String>,
 }
 
-fn get_instances_dir(app: &tauri::AppHandle) -> Result<PathBuf, String> {
-    let dir = app
-        .path_resolver()
-        .app_data_dir()
-        .unwrap_or_else(|| {
-            dirs::data_dir()
-                .unwrap_or_else(|| PathBuf::from("."))
-                .join("vapour-launcher")
-        })
+fn get_instances_dir(_app: &tauri::AppHandle) -> Result<PathBuf, String> {
+    let dir = dirs::data_dir()
+        .unwrap_or_else(|| PathBuf::from("."))
+        .join("vapour-launcher")
         .join("instances");
     fs::create_dir_all(&dir).map_err(|e| e.to_string())?;
     Ok(dir)
 }
 
-fn get_instance_store_path(app: &tauri::AppHandle) -> Result<PathBuf, String> {
-    let dir = app
-        .path_resolver()
-        .app_data_dir()
-        .unwrap_or_else(|| {
-            dirs::data_dir()
-                .unwrap_or_else(|| PathBuf::from("."))
-                .join("vapour-launcher")
-        });
+fn get_instance_store_path(_app: &tauri::AppHandle) -> Result<PathBuf, String> {
+    let dir = dirs::data_dir()
+        .unwrap_or_else(|| PathBuf::from("."))
+        .join("vapour-launcher");
     fs::create_dir_all(&dir).map_err(|e| e.to_string())?;
     Ok(dir.join("instances.json"))
 }

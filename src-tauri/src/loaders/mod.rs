@@ -65,14 +65,10 @@ struct NeoForgeVersionList {
     versions: Option<Vec<String>>,
 }
 
-fn get_data_dir(app: &tauri::AppHandle) -> PathBuf {
-    app.path_resolver()
-        .app_data_dir()
-        .unwrap_or_else(|| {
-            dirs::data_dir()
-                .unwrap_or_else(|| PathBuf::from("."))
-                .join("vapour-launcher")
-        })
+fn get_data_dir(_app: &tauri::AppHandle) -> PathBuf {
+    dirs::data_dir()
+        .unwrap_or_else(|| PathBuf::from("."))
+        .join("vapour-launcher")
 }
 
 fn save_loader_profile(

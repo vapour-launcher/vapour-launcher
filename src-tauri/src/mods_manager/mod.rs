@@ -59,15 +59,10 @@ pub struct ModrinthHashes {
     pub sha512: Option<String>,
 }
 
-fn get_mods_dir(app: &tauri::AppHandle, instance_id: &str) -> PathBuf {
-    let data_dir = app
-        .path_resolver()
-        .app_data_dir()
-        .unwrap_or_else(|| {
-            dirs::data_dir()
-                .unwrap_or_else(|| PathBuf::from("."))
-                .join("vapour-launcher")
-        });
+fn get_mods_dir(_app: &tauri::AppHandle, instance_id: &str) -> PathBuf {
+    let data_dir = dirs::data_dir()
+        .unwrap_or_else(|| PathBuf::from("."))
+        .join("vapour-launcher");
     data_dir
         .join("instances")
         .join(instance_id)
